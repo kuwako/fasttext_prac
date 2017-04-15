@@ -2,10 +2,27 @@
 
 import gensim
 import time
+import MeCab
 
 start = time.time()
-model = gensim.models.KeyedVectors.load_word2vec_format('model.vec', binary=False)
+mecab = MeCab.Tagger ('-d /usr/local/lib/mecab/dic/mecab-ipadic-neologd')
 
+text = 'むかしむかし、あるところに、おじいさんとおばあさんが住んでいました。おじいさんは山へしばかりに、おばあさんは川へせんたくに行きました。おばあさんが川でせんたくをしていると、ドンブラコ、ドンブラコと、大きな桃が流れてきました。'
+model = gensim.models.KeyedVectors.load_word2vec_format('model.vec', binary=False)
+mecab.parse('')#文字列がGCされるのを防ぐ
+node = mecab.parseToNode(text)
+
+while node:
+    #単語を取得
+    word = node.surface
+    #品詞を取得
+    pos = node.feature.split(",")[1]
+
+    # TODO posの種類によって変換の実行、非実行を管理
+
+    print('{0} , {1}'.format(word, pos))
+    #次の単語に進める
+    node = node.next
 print(model.most_similar(positive=['麻婆豆腐'], topn=1))
 
 elapsed_time = time.time() - start
