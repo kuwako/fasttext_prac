@@ -8,9 +8,18 @@ start = time.time()
 mecab = MeCab.Tagger ('-d /usr/local/lib/mecab/dic/mecab-ipadic-neologd')
 
 text = 'むかしむかし、あるところに、おじいさんとおばあさんが住んでいました。おじいさんは山へしばかりに、おばあさんは川へせんたくに行きました。おばあさんが川でせんたくをしていると、ドンブラコ、ドンブラコと、大きな桃が流れてきました。'
-model = gensim.models.KeyedVectors.load_word2vec_format('model.vec', binary=False)
+# model = gensim.models.KeyedVectors.load_word2vec_format('model.vec', binary=False)
 mecab.parse('')#文字列がGCされるのを防ぐ
 node = mecab.parseToNode(text)
+
+# 弾かない文法リスト
+whiteList = [
+    '副詞可能',
+    '一般',
+    '自立',
+    '固有名詞',
+    '形容動詞語幹'
+]
 
 while node:
     #単語を取得
@@ -19,11 +28,14 @@ while node:
     pos = node.feature.split(",")[1]
 
     # TODO posの種類によって変換の実行、非実行を管理
+    if pos in whiteList:
+        word = 'hoge'
+    # TODO 弾かない文法なら、word2vecで判定する
 
     print('{0} , {1}'.format(word, pos))
     #次の単語に進める
     node = node.next
-print(model.most_similar(positive=['麻婆豆腐'], topn=1))
+# print(model.most_similar(positive=['麻婆豆腐'], topn=1))
 
 elapsed_time = time.time() - start
 print(("elapsed_time:{0}".format(elapsed_time)) + "[sec]")
