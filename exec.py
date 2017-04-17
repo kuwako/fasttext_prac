@@ -7,8 +7,8 @@ import MeCab
 start = time.time()
 mecab = MeCab.Tagger ('-d /usr/local/lib/mecab/dic/mecab-ipadic-neologd')
 
-text = 'むかしむかし、あるところに、おじいさんとおばあさんが住んでいました。おじいさんは山へしばかりに、おばあさんは川へせんたくに行きました。おばあさんが川でせんたくをしていると、ドンブラコ、ドンブラコと、大きな桃が流れてきました。'
-# model = gensim.models.KeyedVectors.load_word2vec_format('model.vec', binary=False)
+text = 'むかしむかし、あるところに、おじいさんとおばあさんが住んでいました。おじいさんは山へ芝刈りに、おばあさんは川へせんたくに行きました。おばあさんが川でせんたくをしていると、ドンブラコ、ドンブラコと、大きな桃が流れてきました。'
+model = gensim.models.KeyedVectors.load_word2vec_format('model.vec', binary=False)
 mecab.parse('')#文字列がGCされるのを防ぐ
 node = mecab.parseToNode(text)
 
@@ -27,10 +27,11 @@ while node:
     #品詞を取得
     pos = node.feature.split(",")[1]
 
-    # TODO posの種類によって変換の実行、非実行を管理
+    # posの種類によって変換の実行、非実行を管理
     if pos in whiteList:
-        word = 'hoge'
-    # TODO 弾かない文法なら、word2vecで判定する
+    # 弾かない文法なら、word2vecで判定する
+        word = model.most_similar(positive=[word], topn=1)[0][0]
+        # TODO KeyError: "word 'しばかり' not in vocabulary"
 
     print('{0} , {1}'.format(word, pos))
     #次の単語に進める
