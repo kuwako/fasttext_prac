@@ -11,6 +11,7 @@ text = 'むかしむかし、あるところに、おじいさんとおばあさ
 model = gensim.models.KeyedVectors.load_word2vec_format('model.vec', binary=False)
 mecab.parse('')#文字列がGCされるのを防ぐ
 node = mecab.parseToNode(text)
+strCat = ''
 
 # 弾かない文法リスト
 whiteList = [
@@ -29,11 +30,15 @@ while node:
 
     # posの種類によって変換の実行、非実行を管理
     if pos in whiteList:
-    # 弾かない文法なら、word2vecで判定する
-        word = model.most_similar(positive=[word], topn=1)[0][0]
-        # TODO KeyError: "word 'しばかり' not in vocabulary"
+        # 弾かない文法なら、word2vecで判定する
+        try:
+            tmp = model.most_similar(positive=[word], topn=1)
+            ward = tmp[0][0]
+        except:
+            print('not in vocabulary')
 
     print('{0} , {1}'.format(word, pos))
+    strCat += word
     #次の単語に進める
     node = node.next
 # print(model.most_similar(positive=['麻婆豆腐'], topn=1))
