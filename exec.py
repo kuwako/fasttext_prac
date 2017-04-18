@@ -32,8 +32,7 @@ while node:
     if pos in whiteList:
         # 弾かない文法なら、word2vecで判定する
         try:
-            tmp = model.most_similar(positive=[word], topn=1)
-            ward = tmp[0][0]
+            word = model.most_similar(positive=[word], topn=1)[0][0]
         except:
             print('not in vocabulary')
 
@@ -43,6 +42,7 @@ while node:
     node = node.next
 # print(model.most_similar(positive=['麻婆豆腐'], topn=1))
 
+print(strCat)
 elapsed_time = time.time() - start
 print(("elapsed_time:{0}".format(elapsed_time)) + "[sec]")
 
