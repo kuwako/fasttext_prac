@@ -5,6 +5,10 @@
 ### 学習済みモデル
 - 以下のqiitaから感謝しながら利用しました
     - http://qiita.com/Hironsan/items/513b9f93752ecee9e670
+
+### mecab-python
+- リファレンス的なもの
+    - https://taku910.github.io/mecab/bindings.html
     
 ### 実行方法
 - python3 exec.py
