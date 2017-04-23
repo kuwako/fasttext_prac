@@ -6,8 +6,9 @@ import MeCab
 
 start = time.time()
 mecab = MeCab.Tagger ('-d /usr/local/lib/mecab/dic/mecab-ipadic-neologd')
+mecabSub = MeCab.Tagger ('-d /usr/local/lib/mecab/dic/mecab-ipadic-neologd')
 
-text = 'むかしむかし、あるところに、おじいさんとおばあさんが住んでいました。おじいさんは山へ芝刈りに、おばあさんは川へせんたくに行きました。おばあさんが川でせんたくをしていると、ドンブラコ、ドンブラコと、大きな桃が流れてきました。'
+text = 'むかしむかし、あるところに、おじいさんとおばあさんが住んでいました。おじいさんは山へ芝刈りに、おばあさんは川へ洗濯に行きました。おばあさんが川で洗濯をしていると、ドンブラコ、ドンブラコと、大きな桃が流れてきました。'
 
 # text = '吾輩は猫である。名前はまだ無い。どこで生れたかとんと見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。この書生というのは時々我々を捕つかまえて煮にて食うという話である。'
 model = gensim.models.KeyedVectors.load_word2vec_format('model.vec', binary=False)
@@ -35,7 +36,7 @@ while node:
         # 弾かない文法なら、word2vecで判定する
         try:
             similar = model.most_similar(positive=[word], topn=1)[0][0]
-            nodeSimilar = mecab.parseToNode(similar)
+            nodeSimilar = mecabSub.parseToNode(similar)
             posSimilar = nodeSimilar.feature.split(",")[1]
             if pos == posSimilar:
                 word = similar
