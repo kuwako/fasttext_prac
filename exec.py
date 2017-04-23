@@ -34,16 +34,19 @@ while node:
     # posの種類によって変換の実行、非実行を管理
     if pos in whiteList:
         # 弾かない文法なら、word2vecで判定する
-        try:
+        # try:
             similar = model.most_similar(positive=[word], topn=1)[0][0]
-            nodeSimilar = mecabSub.parseToNode(similar)
-            posSimilar = nodeSimilar.feature.split(",")[1]
-            if pos == posSimilar:
-                word = similar
-        except:
-            print('not in vocabulary')
+            nodeSimilar = mecabSub.parse(similar)
+            # posSimilar = nodeSimilar.feature
+            print(pos + ': '+ word)
+            # print(posSimilar)
+            print(nodeSimilar.split(",")[0])
+            print(similar)
+            # if pos == posSimilar:
+            word = similar
+        # except:
+        #     print('not in vocabulary')
 
-    print('{0} , {1}'.format(word, pos))
     strCat += word
     #次の単語に進める
     node = node.next
