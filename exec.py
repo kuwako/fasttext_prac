@@ -36,11 +36,11 @@ while node:
         # 弾かない文法なら、word2vecで判定する
         # try:
             similar = model.most_similar(positive=[word], topn=1)[0][0]
-            nodeSimilar = mecabSub.parse(similar)
+            nodeSimilar = mecabSub.parseToNode(similar)
             # posSimilar = nodeSimilar.feature
             print(pos + ': '+ word)
             # print(posSimilar)
-            print(nodeSimilar.split(",")[0])
+            print(nodeSimilar.feature)
             print(similar)
             # if pos == posSimilar:
             word = similar
