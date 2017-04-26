@@ -9,6 +9,11 @@
 ### mecab-python
 - リファレンス的なもの
     - https://taku910.github.io/mecab/bindings.html
+
+### doc2vec
+- word2vecより文脈理解が優秀らしい
+    - 学習済みデータと利用法
+        - https://github.com/pixiv/pixivnovel2vec/releases
     
 ### 実行方法
 - python3 exec.py
