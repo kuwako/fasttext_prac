@@ -18,3 +18,6 @@
 ### 実行方法
 - python3 exec.py
     - python exec.pyだとmac標準のpython2.6系が使われ、日本語がうまく扱えない
+    
+### 進捗
+変換時の判定にmecabを使う箇所で難航中
