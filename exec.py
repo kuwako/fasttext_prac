@@ -15,6 +15,7 @@ model = gensim.models.KeyedVectors.load_word2vec_format('model.vec', binary=Fals
 mecab.parse('')#文字列がGCされるのを防ぐ
 node = mecab.parseToNode(text)
 strCat = ''
+exceptionIndex = 0
 
 # 弾かない文法リスト
 whiteList = [
@@ -34,18 +35,13 @@ while node:
     # posの種類によって変換の実行、非実行を管理
     if pos in whiteList:
         # 弾かない文法なら、word2vecで判定する
-        # try:
+        try:
             similar = model.most_similar(positive=[word], topn=1)[0][0]
-            nodeSimilar = mecabSub.parseToNode(similar)
-            # posSimilar = nodeSimilar.feature
-            print(pos + ': '+ word)
-            # print(posSimilar)
-            print(nodeSimilar.feature)
-            print(similar)
-            # if pos == posSimilar:
-            word = similar
-        # except:
-        #     print('not in vocabulary')
+            nodeSimilar = mecabSub.parse(similar).split(",")[1]
+            if pos == nodeSimilar:
+                word = similar
+        except:
+            exceptionIndex += 1
 
     strCat += word
     #次の単語に進める
@@ -53,6 +49,7 @@ while node:
 # print(model.most_similar(positive=['麻婆豆腐'], topn=1))
 
 print(strCat)
+print(str(exceptionIndex) + ' times exceptions occured.')
 elapsed_time = time.time() - start
 print(("elapsed_time:{0}".format(elapsed_time)) + "[sec]")
 
