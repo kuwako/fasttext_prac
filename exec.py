@@ -31,6 +31,8 @@ while node:
     word = node.surface
     #品詞を取得
     pos = node.feature.split(",")[1]
+    print(word)
+    print(node.feature)
 
     # posの種類によって変換の実行、非実行を管理
     if pos in whiteList:
@@ -38,10 +40,13 @@ while node:
         try:
             similar = model.most_similar(positive=[word], topn=1)[0][0]
             nodeSimilar = mecabSub.parse(similar).split(",")[1]
+            print(similar)
+            print(mecabSub.parse(similar))
             if pos == nodeSimilar:
                 word = similar
         except:
             exceptionIndex += 1
+            print(str(exceptionIndex))
 
     strCat += word
     #次の単語に進める
