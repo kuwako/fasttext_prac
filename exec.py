@@ -38,8 +38,10 @@ while node:
     if pos in whiteList:
         # 弾かない文法なら、word2vecで判定する
         try:
+            // TODO ここをまずは0だけでなく、ループを回すようにする
             similar = model.most_similar(positive=[word], topn=1)[0][0]
-            nodeSimilar = mecabSub.parse(similar).split(",")[1]
+            // TODO 1だけでなく、0と5(?)の一致も確認する。
+            nodeSimilar = mecabSub.parseToNode(similar).feature.split(",")[1]
             print(similar)
             print(mecabSub.parse(similar))
             if pos == nodeSimilar:
