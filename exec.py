@@ -8,9 +8,9 @@ start = time.time()
 mecab = MeCab.Tagger ('-d /usr/local/lib/mecab/dic/mecab-ipadic-neologd')
 mecabSub = MeCab.Tagger ('-d /usr/local/lib/mecab/dic/mecab-ipadic-neologd')
 
-text = 'むかしむかし、あるところに、おじいさんとおばあさんが住んでいました。おじいさんは山へ芝刈りに、おばあさんは川へ洗濯に行きました。おばあさんが川で洗濯をしていると、ドンブラコ、ドンブラコと、大きな桃が流れてきました。'
+# text = 'むかしむかし、あるところに、おじいさんとおばあさんが住んでいました。おじいさんは山へ芝刈りに、おばあさんは川へ洗濯に行きました。おばあさんが川で洗濯をしていると、ドンブラコ、ドンブラコと、大きな桃が流れてきました。'
 
-# text = '吾輩は猫である。名前はまだ無い。どこで生れたかとんと見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。この書生というのは時々我々を捕つかまえて煮にて食うという話である。'
+text = '吾輩は猫である。名前はまだ無い。どこで生れたかとんと見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。この書生というのは時々我々を捕つかまえて煮にて食うという話である。'
 model = gensim.models.KeyedVectors.load_word2vec_format('model.vec', binary=False)
 mecab.parse('')#文字列がGCされるのを防ぐ
 node = mecab.parseToNode(text)
@@ -30,23 +30,25 @@ while node:
     #単語を取得
     word = node.surface
     #品詞を取得
-    pos = node.feature.split(",")[1]
-    print(word)
-    print(node.feature)
+    feature = node.feature.split(",")
 
-    # posの種類によって変換の実行、非実行を管理
-    if pos in whiteList:
+    # featureの種類によって変換の実行、非実行を管理
+    if feature in whiteList:
         # 弾かない文法なら、word2vecで判定する
-        try:
+        # try:
             # TODO ここをまずは0だけでなく、ループを回すようにする
-            similar = model.most_similar(positive=[word], topn=1)[0][0]
-            # TODO 1だけでなく、0と5(?)の一致も確認する。
-            nodeSimilar = mecabSub.parseToNode(similar).feature.split(",")[1]
+            similar = model.most_similar(positive=[word], topn=10)
+            for similar_word in similar:
+                nodeSimilarFeature = mecabSub.parseToNode(similar_word[0]).feature.split(",")
+                if feature == nodeSimilar:
+                    # TODO この辺合わせる
+                    # print('{0} , {1} , {2} , {3} , {4} '.format(word, pos[0], pos[1], pos[4], pos[5]))
+                    word = similar
+                    break
+            end
             print(similar)
-            print(mecabSub.parse(similar))
-            if pos == nodeSimilar:
-                word = similar
-        except:
+            # similarの中身は(’単語’, 類似率) ex: ('夏目漱石', 0.6646738052368164)
+        # except:
             exceptionIndex += 1
             print(str(exceptionIndex))
 
