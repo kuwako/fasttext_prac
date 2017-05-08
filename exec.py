@@ -33,21 +33,20 @@ while node:
     feature = node.feature.split(",")
 
     # featureの種類によって変換の実行、非実行を管理
-    if feature in whiteList:
+    if feature[1] in whiteList:
         # 弾かない文法なら、word2vecで判定する
         # try:
-            # TODO ここをまずは0だけでなく、ループを回すようにする
+            # similarの中身は(’単語’, 類似率) ex: ('夏目漱石', 0.6646738052368164)
             similar = model.most_similar(positive=[word], topn=10)
             for similar_word in similar:
                 nodeSimilarFeature = mecabSub.parseToNode(similar_word[0]).feature.split(",")
-                if feature == nodeSimilar:
-                    # TODO この辺合わせる
-                    # print('{0} , {1} , {2} , {3} , {4} '.format(word, pos[0], pos[1], pos[4], pos[5]))
-                    word = similar
+                if feature[0] == nodeSimilarFeature[0]
+                and feature[1] == nodeSimilarFeature[1]
+                and feature[4] == nodeSimilarFeature[4]
+                and feature[5] == nodeSimilarFeature[5]:
+                    word = similar[0]
                     break
             end
-            print(similar)
-            # similarの中身は(’単語’, 類似率) ex: ('夏目漱石', 0.6646738052368164)
         # except:
             exceptionIndex += 1
             print(str(exceptionIndex))
