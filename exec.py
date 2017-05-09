@@ -37,13 +37,13 @@ while node:
         # 弾かない文法なら、word2vecで判定する
         # try:
             # similarの中身は(’単語’, 類似率) ex: ('夏目漱石', 0.6646738052368164)
-            similar = model.most_similar(positive=[word], topn=10)
-            for similar_word in similar:
-                nodeSimilarFeature = mecabSub.parseToNode(similar_word[0]).feature.split(",")
-                if feature[0] == nodeSimilarFeature[0]
-                and feature[1] == nodeSimilarFeature[1]
-                and feature[4] == nodeSimilarFeature[4]
-                and feature[5] == nodeSimilarFeature[5]:
+            similarList = model.most_similar(positive=[word], topn=10)
+            for similar in similarList:
+                similarFeatures = mecabSub.parseToNode(similar[0]).feature.split(",")
+                if feature[0] == similarFeatures[0]
+                and feature[1] == similarFeatures[1]
+                and feature[4] == similarFeatures[4]
+                and feature[5] == similarFeatures[5]:
                     word = similar[0]
                     break
             end
