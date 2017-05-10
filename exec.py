@@ -26,7 +26,11 @@ whiteList = [
     '形容動詞語幹'
 ]
 
+elapsed_time = time.time() - start
+print(("elapsed_time:{0}".format(elapsed_time)) + "[sec]")
+print('loop start')
 while node:
+    print('.', end='')
     #単語を取得
     word = node.surface
     #品詞を取得
@@ -35,19 +39,18 @@ while node:
     # featureの種類によって変換の実行、非実行を管理
     if feature[1] in whiteList:
         # 弾かない文法なら、word2vecで判定する
-        # try:
+        try:
             # similarの中身は(’単語’, 類似率) ex: ('夏目漱石', 0.6646738052368164)
             similarList = model.most_similar(positive=[word], topn=10)
             for similar in similarList:
                 similarFeatures = mecabSub.parseToNode(similar[0]).feature.split(",")
-                if feature[0] == similarFeatures[0]
-                and feature[1] == similarFeatures[1]
-                and feature[4] == similarFeatures[4]
+                if feature[0] == similarFeatures[0] \
+                and feature[1] == similarFeatures[1] \
+                and feature[4] == similarFeatures[4] \
                 and feature[5] == similarFeatures[5]:
                     word = similar[0]
                     break
-            end
-        # except:
+        except:
             exceptionIndex += 1
             print(str(exceptionIndex))
 
