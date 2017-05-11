@@ -30,7 +30,7 @@ elapsed_time = time.time() - start
 print(("elapsed_time:{0}".format(elapsed_time)) + "[sec]")
 print('loop start')
 while node:
-    print('.', end='')
+    print('.')
     #単語を取得
     word = node.surface
     #品詞を取得
@@ -43,7 +43,13 @@ while node:
             # similarの中身は(’単語’, 類似率) ex: ('夏目漱石', 0.6646738052368164)
             similarList = model.most_similar(positive=[word], topn=10)
             for similar in similarList:
+                # TODO parseのsplit検証
                 similarFeatures = mecabSub.parseToNode(similar[0]).feature.split(",")
+                print(word)
+                print(feature)
+                print(similar[0])
+                print(similarFeatures)
+                print(" ")
                 if feature[0] == similarFeatures[0] \
                 and feature[1] == similarFeatures[1] \
                 and feature[4] == similarFeatures[4] \
