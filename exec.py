@@ -8,9 +8,11 @@ start = time.time()
 mecab = MeCab.Tagger ('-d /usr/local/lib/mecab/dic/mecab-ipadic-neologd')
 mecabSub = MeCab.Tagger ('-d /usr/local/lib/mecab/dic/mecab-ipadic-neologd')
 
-text = 'むかしむかし、あるところに、おじいさんとおばあさんが住んでいました。おじいさんは山へ芝刈りに、おばあさんは川へ洗濯に行きました。おばあさんが川で洗濯をしていると、ドンブラコ、ドンブラコと、大きな桃が流れてきました。'
+# text = 'むかしむかし、あるところに、おじいさんとおばあさんが住んでいました。おじいさんは山へ芝刈りに、おばあさんは川へ洗濯に行きました。おばあさんが川で洗濯をしていると、ドンブラコ、ドンブラコと、大きな桃が流れてきました。'
 
 # text = '吾輩は猫である。名前はまだ無い。どこで生れたかとんと見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。この書生というのは時々我々を捕つかまえて煮にて食うという話である。'
+
+text = '強いポケモン弱いポケモン、そんなの人の勝手本当に強いトレーナーなら好きなポケモンで勝てるように頑張るべき'
 
 model = gensim.models.KeyedVectors.load_word2vec_format('model.vec', binary=False)
 mecab.parse('')#文字列がGCされるのを防ぐ
@@ -32,7 +34,6 @@ print(("elapsed_time:{0}".format(elapsed_time)) + "[sec]")
 
 print('loop start')
 while node:
-    print('.')
     #単語を取得
     word = node.surface
     #品詞を取得
