@@ -15,8 +15,8 @@ mecabSub = MeCab.Tagger ('-d /usr/local/lib/mecab/dic/mecab-ipadic-neologd')
 # text = '強いポケモン弱いポケモン、そんなの人の勝手本当に強いトレーナーなら好きなポケモンで勝てるように頑張るべき'
 text = 'バイトークにある「先輩の声」は、職場の雰囲気や人間関係について書かれているため、そのバイトに自分が合うかどうか？を応募する前に知ることができます。バイトークで応募して採用された先輩アルバイターに、シフトの決め方や仕事のやりがいなどを投稿していただいているので、口コミ情報の信頼感がありますよ。アルバイトに応募する際には、この評判をぜひ参考にしてみてください。また、バイトークで応募して採用された方はぜひ「先輩の声」を書いて、新しく入ってくる後輩に職場の楽しさや面白さを伝えてください。後輩の不安をなくすことで、より楽しくバイト生活を送れるようになるでしょう。'
 
-model = gensim.models.KeyedVectors.load_word2vec_format('model.vec', binary=False)
-# model = gensim.models.KeyedVectors.load_word2vec_format('pixiv_model.vec', binary=False)
+# model = gensim.models.KeyedVectors.load_word2vec_format('model.vec', binary=False)
+model = gensim.models.KeyedVectors.load_word2vec_format('pixiv_model.vec', binary=False)
 mecab.parse('')#文字列がGCされるのを防ぐ
 node = mecab.parseToNode(text)
 strCat = ''
