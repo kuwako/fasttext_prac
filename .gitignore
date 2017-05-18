@@ -1,4 +1,4 @@
-model.vec
-pixiv_model.vec
+*.vec
 *.swp
 .DS_Store
+*.model
