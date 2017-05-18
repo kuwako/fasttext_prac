@@ -16,8 +16,8 @@ mecabSub = MeCab.Tagger ('-d /usr/local/lib/mecab/dic/mecab-ipadic-neologd')
 # text = 'バイトークにある「先輩の声」は、職場の雰囲気や人間関係について書かれているため、そのバイトに自分が合うかどうか？を応募する前に知ることができます。バイトークで応募して採用された先輩アルバイターに、シフトの決め方や仕事のやりがいなどを投稿していただいているので、口コミ情報の信頼感がありますよ。アルバイトに応募する際には、この評判をぜひ参考にしてみてください。また、バイトークで応募して採用された方はぜひ「先輩の声」を書いて、新しく入ってくる後輩に職場の楽しさや面白さを伝えてください。後輩の不安をなくすことで、より楽しくバイト生活を送れるようになるでしょう。'
 text = '天皇陛下の退位をめぐり、政府が前もって2018年夏に退位の期日と新しい元号を公表する方向で検討していることが分かった。退位と皇太子さまの新天皇即位は同年12月下旬とし、改元を19年元日とする案が有力。国民生活への影響に配慮し、元号の切り替えまで4～5カ月の準備期間を置くのが狙いだ。政府関係者が18日、明らかにした。　改元を元日とするのは、1年の途中でカレンダー・手帳の刷り直しや官民のシステム変更が行われ、国民生活が混乱したり経済的損失が生じたりする事態を避けるため。新元号の発表から改元まで一定の猶予期間を置くことで「円滑な代替わりを実現したい」（政府関係者）としている。　新元号の選定は、1989年の「平成」改元時の手続きを基本的に踏襲する方向。学識経験者に複数の候補を挙げてもらい、有識者懇談会や衆参両院議長からの意見聴取を経て一つに絞り、閣議決定する段取りだ。従来通り漢字2文字とし、過去に使われた言葉は避ける。行政手続法に基づくパブリックコメント（意見公募）は行わない。 from yahooニュース'
 
-model = gensim.models.KeyedVectors.load_word2vec_format('model.vec', binary=False)
-# model = gensim.models.KeyedVectors.load_word2vec_format('pixiv_model.vec', binary=False)
+# model = gensim.models.KeyedVectors.load_word2vec_format('model.vec', binary=False)
+model = gensim.models.KeyedVectors.load_word2vec_format('pixiv_model.vec', binary=False)
 # model = Word2Vec('word2vec.gensim.model')
 mecab.parse('')#文字列がGCされるのを防ぐ
 node = mecab.parseToNode(text)
