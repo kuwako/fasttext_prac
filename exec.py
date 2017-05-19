@@ -34,7 +34,7 @@ whiteList = [
 ]
 
 elapsed_time = time.time() - start
-print(("elapsed_time:{0}".format(elapsed_time)) + "[sec]")
+print(("model読み込み時間:{0}".format(elapsed_time)) + "[sec]")
 
 print('loop start')
 while node:
@@ -50,6 +50,8 @@ while node:
             # similarの中身は(’単語’, 類似率) ex: ('夏目漱石', 0.6646738052368164)
             similarList = model.most_similar(positive=[word], topn=10)
             for similar in similarList:
+                if similar[1] < 0.75:
+                    break;
                 similarFeatures = mecabSub.parse(similar[0]).split("\t")
                 if similarFeatures[1:]:
                     similarFeatures = similarFeatures[1].split(",")
@@ -61,7 +63,6 @@ while node:
                     break
         except:
             exceptionIndex += 1
-            print(str(exceptionIndex))
 
     strCat += word
     #次の単語に進める
@@ -71,7 +72,8 @@ while node:
 print(strCat)
 print(str(exceptionIndex) + ' times exceptions occured.')
 elapsed_time = time.time() - start
-print(("elapsed_time:{0}".format(elapsed_time)) + "[sec]")
+print(("実行時間:{0}".format(elapsed_time)) + "[sec]")
+print()
 
 # 桃太郎の変換後
 # むかしむかし、あるところに、おばあさんとばあさんが移り住んでいました。おばあさんは麓へダート刈りに、ばあさんは支流へ洗濯に行きました。ばあさんが支流で洗濯をしていると、ドンブラコ、ドンブラコと、大きな梨が流れてきました。
