@@ -20,9 +20,9 @@
         - https://github.com/pixiv/pixivnovel2vec/releases
 
 ### 実行方法
-- python3 exec.py
+- python3 exec.py >> exec.log
     - python exec.pyだとmac標準のpython2.6系が使われ、日本語がうまく扱えない
 
 ### 進捗
-- 一旦読めなくはない文章に変換可能。ここから精度をあげる方法を模索する
-- 実行時間はメモリ8GB、2013年のMBA、wikipediaベースの辞書で120秒程度、pixiu辞書なら２０秒程度
+- 一旦読めなくはない文章に変換可能。ここから精度をあげる方法を模索する。
+- 実行時間はメモリ8GB、2013年のMBA、wikipediaベースの辞書で120秒程度、pixiv辞書なら２０秒程度
