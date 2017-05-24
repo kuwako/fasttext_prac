@@ -8,7 +8,7 @@ from gensim.models.word2vec import Word2Vec
 start = time.time()
 mecab = MeCab.Tagger ('-d /usr/local/lib/mecab/dic/mecab-ipadic-neologd')
 mecabSub = MeCab.Tagger ('-d /usr/local/lib/mecab/dic/mecab-ipadic-neologd')
-rate = 0.80
+rate = 0.65
 
 # text = 'むかしむかし、あるところに、おじいさんとおばあさんが住んでいました。おじいさんは山へ芝刈りに、おばあさんは川へ洗濯に行きました。おばあさんが川で洗濯をしていると、ドンブラコ、ドンブラコと、大きな桃が流れてきました。'
 
